@@ -1,0 +1,21 @@
+version: "3"
+services:
+  api:
+    build: ./
+    ports:
+      - 8000:8000
+    volumes:
+      - ./../app/:/app/
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    image: mysql
+    ports:
+      - 3306:3306
+    volumes:
+      - ./../db/docker-entrypoint-initdb.d/:/docker-entrypoint-initdb.d/
+    env_file:
+      - ./.env
+    healthcheck:
+      test: mysqladmin ping -h db -uroot -p$MYSQL_ROOT_PASSWORD
