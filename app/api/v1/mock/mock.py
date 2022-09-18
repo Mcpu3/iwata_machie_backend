@@ -63,6 +63,27 @@ def get_archives_mock(date_and_time: Optional[str] = None, ip_address: Optional[
 
     return archives
 
+@api_router.get('/post/', response_model=Post)
+def get_post_mock() -> Post:
+    fetched = crud.read_post_by_id(connect, 1)
+    post: Post = {
+        'id': fetched[0],
+        'body': fetched[1],
+        'scale': fetched[2],
+        'reaction_thumbsup': fetched[3],
+        'reaction_heart': fetched[4],
+        'reaction_smile': fetched[5],
+        'reaction_astonished': fetched[6],
+        'rank_highest_thumbsup': fetched[7],
+        'rank_highest_heart': fetched[8],
+        'rank_highest_smile': fetched[9],
+        'rank_highest_astonished': fetched[10],
+        'date_and_time': fetched[11].strftime('%Y-%m-%d %H:%M:%S'),
+        'ip_address': fetched[12]
+    }
+
+    return post
+
 @api_router.get('/post/{id}/', response_model=Post)
 def get_post_by_id_mock(id: int) -> Post:
     fetched = crud.read_post_by_id(connect, id)
