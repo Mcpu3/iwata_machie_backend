@@ -16,10 +16,6 @@ docker-compose -f ./.devcontainer/docker-compose.yml up -d
 
 ### サイトにアクセス
 
-* ルート
-```
-http://localhost:8000/
-```
 * APIドキュメント
 ```
 http://localhost:8000/docs/
