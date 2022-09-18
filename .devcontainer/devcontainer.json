@@ -1,8 +1,0 @@
-{
-    "workspaceFolder": "/app/",
-    "dockerComposeFile": "./docker-compose.yml",
-    "service": "api",
-    "extensions": [
-        "ms-python.python"
-    ]
-}
