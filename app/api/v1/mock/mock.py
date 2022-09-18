@@ -115,7 +115,7 @@ def get_posts_mock(ip_address: Optional[str] = None) -> Posts:
     return posts
 
 @api_router.post('/new_post/', response_model=NewPost)
-def post_new_post(new_post: NewPost) -> NewPost:
+def post_new_post_mock(new_post: NewPost) -> NewPost:
     
     return new_post
 
