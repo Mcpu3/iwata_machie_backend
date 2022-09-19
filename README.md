@@ -4,9 +4,9 @@
 
 ### モック
 
-* **archives_mock**(<u>id</u>, body, scale, date_and_time, ip_address)
+* **archives_mock**(<u>id</u>, body, label, scale, date_and_time, e_mail)
 * **posts_mock**(<u>id</u>)
-* **reactions_mock**(<u>id</u>, thumbsup, heart, smile, astonished, ip_address)
+* **reactions_mock**(<u>id</u>, thumbsup, heart, smile, astonished, e_mail)
 * **trends_mock**(<u>id</u>, thumbsup, heart, smile, astonished)
 
 ## 環境構築
