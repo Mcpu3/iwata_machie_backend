@@ -3,193 +3,159 @@ from typing import Optional
 from fastapi import APIRouter
 import MySQLdb
 
-from api.v1.mock.schemas import Archive, Archives, Post, Posts, NewPost, Trend, Trends
+from api.v1.mock import schemas
 from api.v1.mock import crud
 
 
 api_router = APIRouter()
 connect = MySQLdb.connect(host='db', user='root', password='password', db='api')
 
-@api_router.get('/archive/{id}/', response_model=Archive)
-def get_archive_by_id_mock(id: int) -> Archive:
-    fetched = crud.read_archive_by_id(connect, id)
-    archive: Archive = {
-        'id': fetched[0],
-        'body': fetched[1],
-        'scale': fetched[2],
-        'reaction_thumbsup': fetched[3],
-        'reaction_heart': fetched[4],
-        'reaction_smile': fetched[5],
-        'reaction_astonished': fetched[6],
-        'rank_highest_thumbsup': fetched[7],
-        'rank_highest_heart': fetched[8],
-        'rank_highest_smile': fetched[9],
-        'rank_highest_astonished': fetched[10],
-        'date_and_time': fetched[11].strftime('%Y-%m-%d %H:%M:%S'),
-        'ip_address': fetched[12]
-    }
 
-    return archive
-
-@api_router.get('/archives/', response_model=Archives)
-def get_archives_mock(date_and_time: Optional[str] = None, ip_address: Optional[str] = None) -> Archives:
-    if date_and_time:
-        fetched_all = crud.read_archives_by_date_and_time(connect, date_and_time)
-    elif ip_address:
-        fetched_all = crud.read_archives_by_ip_address(connect, ip_address)
-    else:
-        fetched_all = crud.read_archives(connect)
-    archives = []
-    for fetched in fetched_all:
-        archive: Archive = {
-            'id': fetched[0],
-            'body': fetched[1],
-            'scale': fetched[2],
-            'reaction_thumbsup': fetched[3],
-            'reaction_heart': fetched[4],
-            'reaction_smile': fetched[5],
-            'reaction_astonished': fetched[6],
-            'rank_highest_thumbsup': fetched[7],
-            'rank_highest_heart': fetched[8],
-            'rank_highest_smile': fetched[9],
-            'rank_highest_astonished': fetched[10],
-            'date_and_time': fetched[11].strftime('%Y-%m-%d %H:%M:%S'),
-            'ip_address': fetched[12]
-        }
-        archives.append(archive)
-    archives: Archives = {
-        'archives': archives
-    }
-
-    return archives
-
-@api_router.get('/post/', response_model=Post)
-def get_post_mock() -> Post:
+@api_router.get('/post/', response_model=schemas.Post)
+def get_post_mock() -> schemas.Post:
     fetched = crud.read_post_by_id(connect, 1)
-    post: Post = {
+    post: schemas.Post = {
         'id': fetched[0],
         'body': fetched[1],
         'scale': fetched[2],
-        'reaction_thumbsup': fetched[3],
-        'reaction_heart': fetched[4],
-        'reaction_smile': fetched[5],
-        'reaction_astonished': fetched[6],
-        'rank_highest_thumbsup': fetched[7],
-        'rank_highest_heart': fetched[8],
-        'rank_highest_smile': fetched[9],
-        'rank_highest_astonished': fetched[10],
-        'date_and_time': fetched[11].strftime('%Y-%m-%d %H:%M:%S'),
-        'ip_address': fetched[12]
+        'date_and_time': fetched[3].strftime('%Y-%m-%d %H:%M:%S')
     }
 
     return post
 
-@api_router.get('/post/{id}/', response_model=Post)
-def get_post_by_id_mock(id: int) -> Post:
+@api_router.get('/post/{id}/', response_model=schemas.Post)
+def get_post_by_id_mock(id: int) -> schemas.Post:
     fetched = crud.read_post_by_id(connect, id)
-    post: Post = {
+    post: schemas.Post = {
         'id': fetched[0],
         'body': fetched[1],
         'scale': fetched[2],
-        'reaction_thumbsup': fetched[3],
-        'reaction_heart': fetched[4],
-        'reaction_smile': fetched[5],
-        'reaction_astonished': fetched[6],
-        'rank_highest_thumbsup': fetched[7],
-        'rank_highest_heart': fetched[8],
-        'rank_highest_smile': fetched[9],
-        'rank_highest_astonished': fetched[10],
-        'date_and_time': fetched[11].strftime('%Y-%m-%d %H:%M:%S'),
-        'ip_address': fetched[12]
+        'date_and_time': fetched[3].strftime('%Y-%m-%d %H:%M:%S')
     }
 
     return post
 
-@api_router.get('/posts/', response_model=Posts)
-def get_posts_mock(ip_address: Optional[str] = None) -> Posts:
-    if ip_address:
-        fetched_all = crud.read_posts_by_ip_address(connect, ip_address)
-    else:
-        fetched_all = crud.read_posts(connect)
+@api_router.get('/posts/', response_model=schemas.Posts)
+def get_posts_by_ip_address_mock(ip_address: str) -> schemas.Posts:
+    fetched_all = crud.read_posts_by_ip_address(connect, ip_address)
     posts = []
     for fetched in fetched_all:
-        post: Post = {
+        post: schemas.Post = {
             'id': fetched[0],
             'body': fetched[1],
             'scale': fetched[2],
-            'reaction_thumbsup': fetched[3],
-            'reaction_heart': fetched[4],
-            'reaction_smile': fetched[5],
-            'reaction_astonished': fetched[6],
-            'rank_highest_thumbsup': fetched[7],
-            'rank_highest_heart': fetched[8],
-            'rank_highest_smile': fetched[9],
-            'rank_highest_astonished': fetched[10],
-            'date_and_time': fetched[11].strftime('%Y-%m-%d %H:%M:%S'),
-            'ip_address': fetched[12]
+            'date_and_time': fetched[3].strftime('%Y-%m-%d %H:%M:%S')
         }
         posts.append(post)
-    posts: Posts = {
+    posts: schemas.Posts = {
         'posts': posts
     }
 
     return posts
 
-@api_router.post('/new_post/', response_model=NewPost)
-def post_new_post_mock(new_post: NewPost) -> NewPost:
+@api_router.post('/new_post/', response_model=schemas.NewPost)
+def post_new_post_mock(new_post: schemas.NewPost) -> schemas.NewPost:
     
     return new_post
 
-@api_router.get('/trend/{id}/', response_model=Trend)
-def get_trend_by_id_mock(id: int) -> Trend:
-    fetched = crud.read_trend_by_id(connect, id)
-    trend: Trend = {
+@api_router.get('/post/{id}/reaction/', response_model=schemas.Reaction)
+def get_reaction_by_id_and_ip_address_mock(id: int, ip_address: Optional[str] = None) -> schemas.Reaction:
+    if ip_address:
+        fetched = crud.read_reaction_by_id_and_ip_address(connect, id, ip_address)
+    else:
+        fetched = crud.read_reaction_by_id(connect, id)
+    reaction: schemas.Reaction = {
         'id': fetched[0],
-        'rank_thumbsup': fetched[1],
-        'rank_heart': fetched[2],
-        'rank_smile': fetched[3],
-        'rank_astonished': fetched[4]
+        'thumbsup': fetched[1],
+        'heart': fetched[2],
+        'smile': fetched[3],
+        'astonished': fetched[4]
+    }
+
+    return reaction
+
+@api_router.get('/reactions/', response_model=schemas.Reactions)
+def get_reactions_by_ip_address_mock(ip_address: Optional[str] = None) -> schemas.Reactions:
+    fetched_all = crud.read_reactions_by_ip_address(connect, ip_address)
+    reactions = []
+    for fetched in fetched_all:
+        reaction: schemas.Reaction = {
+            'id': fetched[0],
+            'thumbsup': fetched[1],
+            'heart': fetched[2],
+            'smile': fetched[3],
+            'astonished': fetched[4]
+        }
+        reactions.append(reaction)
+    reactions: schemas.Reactions = {
+        'reactions': reactions
+    }
+
+    return reactions
+
+@api_router.post('/post/{id}/new_reaction/', response_model=schemas.NewReaction)
+def post_new_reaction_post(id: int, new_reaction: schemas.NewReaction) -> schemas.NewReaction:
+
+    return new_reaction
+
+@api_router.get('/post/{id}/trend/', response_model=schemas.Trend)
+def get_trend_by_id_mock(id: int) -> schemas.Trend:
+    fetched = crud.read_trend_by_id(connect, id)
+    trend: schemas.Trend = {
+        'id': fetched[0],
+        'thumbsup': fetched[1],
+        'heart': fetched[2],
+        'smile': fetched[3],
+        'astonished': fetched[4]
     }
 
     return trend
 
-@api_router.get('/trends/', response_model=Trends)
-def get_trends_mock() -> Trends:
-    fetched_all = crud.read_trends(connect)
+@api_router.get('/trends/', response_model=schemas.Trends)
+def get_trends_by_scale_mock(scale: int) -> schemas.Trends:
+    fetched_all = crud.read_trends_by_scale(connect, scale)
     trends = []
     for fetched in fetched_all:
-        trend: Trend = {
+        trend: schemas.Trend = {
             'id': fetched[0],
-            'rank_thumbsup': fetched[1],
-            'rank_heart': fetched[2],
-            'rank_smile': fetched[3],
-            'rank_astonished': fetched[4]
+            'thumbsup': fetched[1],
+            'heart': fetched[2],
+            'smile': fetched[3],
+            'astonished': fetched[4]
         }
         trends.append(trend)
-    trends: Trends = {
+    trends: schemas.Trends = {
         'trends': trends
     }
 
     return trends
 
-@api_router.get('/trends/{scale}/', response_model=Trends)
-def get_trends_by_scale_mock(scale: int, rank: Optional[int] = None, reaction: Optional[str] = None) -> Trends:
-    if rank and reaction:
-        fetched_all = crud.read_trends_by_scale_and_rank(connect, scale, rank, reaction)
-    else:
-        fetched_all = crud.read_trends_by_scale(connect, scale)
-    trends = []
-    for fetched in fetched_all:
-        trend: Trend = {
-            'id': fetched[0],
-            'rank_thumbsup': fetched[1],
-            'rank_heart': fetched[2],
-            'rank_smile': fetched[3],
-            'rank_astonished': fetched[4]
-        }
-        trends.append(trend)
-    trends: Trends = {
-        'trends': trends
+@api_router.get('/archive/{id}/', response_model=schemas.Archive)
+def get_archive_by_id_mock(id: int) -> schemas.Archive:
+    fetched = crud.read_archive_by_id(connect, id)
+    archive: schemas.Archive = {
+        'id': fetched[0],
+        'body': fetched[1],
+        'scale': fetched[2],
+        'date_and_time': fetched[3].strftime('%Y-%m-%d %H:%M:%S')
     }
 
-    return trends
+    return archive
+
+@api_router.get('/archives/', response_model=schemas.Archives)
+def get_archives_by_ip_address_mock(ip_address: str) -> schemas.Archives:
+    fetched_all = crud.read_archives_by_ip_address(connect, ip_address)
+    archives = []
+    for fetched in fetched_all:
+        archive: schemas.Archive = {
+            'id': fetched[0],
+            'body': fetched[1],
+            'scale': fetched[2],
+            'date_and_time': fetched[3].strftime('%Y-%m-%d %H:%M:%S')
+        }
+        archives.append(archive)
+    archives: schemas.Archives = {
+        'archives': archives
+    }
+
+    return archives

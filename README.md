@@ -2,11 +2,12 @@
 
 ## データベースのデータモデル
 
-### APIのモック
+### モック
 
-* **archives_mock**(<u>id</u>, body, scale, reaction_thumbsup, reaction_heart, reaction_smile, reaction_astonished, rank_highest_thumbsup, rank_highest_heart, rank_highest_smile, rank_highest_astonished, date_and_time, ip_address)
+* **archives_mock**(<u>id</u>, body, scale, date_and_time, ip_address)
 * **posts_mock**(<u>id</u>)
-* **trends_mock**(<u>id</u>, rank_thumbsup, rank_heart, rank_smile, rank_astonished)
+* **reactions_mock**(<u>id</u>, thumbsup, heart, smile, astonished, ip_address)
+* **trends_mock**(<u>id</u>, thumbsup, heart, smile, astonished)
 
 ## 環境構築
 
