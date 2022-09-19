@@ -3,38 +3,43 @@ create table archives_mock
 (
     id int auto_increment,
     body varchar(1024),
+    label int,
     scale int,
     date_and_time timestamp,
-    ip_address varchar(1024),
+    e_mail varchar(1024),
     primary key (id)
 );
-insert into archives_mock(body, scale, date_and_time, ip_address) values
+insert into archives_mock(body, label, scale, date_and_time, e_mail) values
 (
     "hello",
     1,
+    1,
     "2022-09-20 06:00:00",
-    "192.168.0.1"
+    "abc@email.com"
 );
-insert into archives_mock(body, scale, date_and_time, ip_address) values
+insert into archives_mock(body, label, scale, date_and_time, e_mail) values
 (
     "world",
     2,
+    2,
     "2022-09-20 18:00:00",
-    "192.168.0.2"
+    "def@email.com"
 );
-insert into archives_mock(body, scale, date_and_time, ip_address) values
+insert into archives_mock(body, label, scale, date_and_time, e_mail) values
 (
     "こんにちは",
+    1,
     3,
     "2022-09-21 06:00:00",
-    "192.168.0.1"
+    "ghi@email.com"
 );
-insert into archives_mock(body, scale, date_and_time, ip_address) values
+insert into archives_mock(body, label, scale, date_and_time, e_mail) values
 (
     "世界",
+    2,
     1,
     "2022-09-21 18:00:00",
-    "192.168.0.2"
+    "abc@email.com"
 );
 create table posts_mock
 (
@@ -56,7 +61,7 @@ create table reactions_mock
     heart int,
     smile int,
     astonished int,
-    ip_address varchar(1024),
+    e_mail varchar(1024),
     foreign key (id) references archives_mock(id)
 );
 insert into reactions_mock values
@@ -66,7 +71,7 @@ insert into reactions_mock values
     0,
     0,
     0,
-    "192.168.0.1"
+    "abc@email.com"
 );
 insert into reactions_mock values
 (
@@ -75,7 +80,7 @@ insert into reactions_mock values
     1,
     0,
     0,
-    "192.168.0.2"
+    "def@email.com"
 );
 insert into reactions_mock values
 (
@@ -84,7 +89,7 @@ insert into reactions_mock values
     0,
     1,
     0,
-    "192.168.0.3"
+    "ghi@email.com"
 );
 insert into reactions_mock values
 (
@@ -93,7 +98,7 @@ insert into reactions_mock values
     0,
     0,
     1,
-    "192.168.0.4"
+    "abc@email.com"
 );
 create table trends_mock
 (

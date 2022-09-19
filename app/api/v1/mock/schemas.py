@@ -4,6 +4,7 @@ from pydantic import BaseModel
 class Post(BaseModel):
     id: int
     body: str
+    label: int
     scale: int
     date_and_time: str
 
@@ -14,7 +15,9 @@ class Posts(BaseModel):
 
 class NewPost(BaseModel):
     body: str
+    label: int
     scale: int
+    e_mail: str
 
 
 class Reaction(BaseModel):
@@ -34,6 +37,7 @@ class NewReaction(BaseModel):
     heart: int
     smile: int
     astonished: int
+    e_mail: str
 
 
 class Trend(BaseModel):
@@ -51,6 +55,7 @@ class Trends(BaseModel):
 class Archive(BaseModel):
     id: int
     body: str
+    label: int
     scale: int
     date_and_time: str
 

@@ -17,8 +17,9 @@ def get_post_mock() -> schemas.Post:
     post: schemas.Post = {
         'id': fetched[0],
         'body': fetched[1],
-        'scale': fetched[2],
-        'date_and_time': fetched[3].strftime('%Y-%m-%d %H:%M:%S')
+        'label': fetched[2],
+        'scale': fetched[3],
+        'date_and_time': fetched[4].strftime('%Y-%m-%d %H:%M:%S')
     }
 
     return post
@@ -29,22 +30,24 @@ def get_post_by_id_mock(id: int) -> schemas.Post:
     post: schemas.Post = {
         'id': fetched[0],
         'body': fetched[1],
-        'scale': fetched[2],
-        'date_and_time': fetched[3].strftime('%Y-%m-%d %H:%M:%S')
+        'label': fetched[2],
+        'scale': fetched[3],
+        'date_and_time': fetched[4].strftime('%Y-%m-%d %H:%M:%S')
     }
 
     return post
 
 @api_router.get('/posts/', response_model=schemas.Posts)
-def get_posts_by_ip_address_mock(ip_address: str) -> schemas.Posts:
-    fetched_all = crud.read_posts_by_ip_address(connect, ip_address)
+def get_posts_by_e_mail_mock(e_mail: str) -> schemas.Posts:
+    fetched_all = crud.read_posts_by_e_mail(connect, e_mail)
     posts = []
     for fetched in fetched_all:
         post: schemas.Post = {
             'id': fetched[0],
             'body': fetched[1],
-            'scale': fetched[2],
-            'date_and_time': fetched[3].strftime('%Y-%m-%d %H:%M:%S')
+            'label': fetched[2],
+            'scale': fetched[3],
+            'date_and_time': fetched[4].strftime('%Y-%m-%d %H:%M:%S')
         }
         posts.append(post)
     posts: schemas.Posts = {
@@ -59,9 +62,9 @@ def post_new_post_mock(new_post: schemas.NewPost) -> schemas.NewPost:
     return new_post
 
 @api_router.get('/post/{id}/reaction/', response_model=schemas.Reaction)
-def get_reaction_by_id_and_ip_address_mock(id: int, ip_address: Optional[str] = None) -> schemas.Reaction:
-    if ip_address:
-        fetched = crud.read_reaction_by_id_and_ip_address(connect, id, ip_address)
+def get_reaction_by_id_and_e_mail_mock(id: int, e_mail: Optional[str] = None) -> schemas.Reaction:
+    if e_mail:
+        fetched = crud.read_reaction_by_id_and_e_mail(connect, id, e_mail)
     else:
         fetched = crud.read_reaction_by_id(connect, id)
     reaction: schemas.Reaction = {
@@ -75,8 +78,8 @@ def get_reaction_by_id_and_ip_address_mock(id: int, ip_address: Optional[str] = 
     return reaction
 
 @api_router.get('/reactions/', response_model=schemas.Reactions)
-def get_reactions_by_ip_address_mock(ip_address: Optional[str] = None) -> schemas.Reactions:
-    fetched_all = crud.read_reactions_by_ip_address(connect, ip_address)
+def get_reactions_by_e_mail_mock(e_mail: str) -> schemas.Reactions:
+    fetched_all = crud.read_reactions_by_e_mail(connect, e_mail)
     reactions = []
     for fetched in fetched_all:
         reaction: schemas.Reaction = {
@@ -112,8 +115,8 @@ def get_trend_by_id_mock(id: int) -> schemas.Trend:
     return trend
 
 @api_router.get('/trends/', response_model=schemas.Trends)
-def get_trends_by_scale_mock(scale: int) -> schemas.Trends:
-    fetched_all = crud.read_trends_by_scale(connect, scale)
+def get_trends_by_label_and_scale_mock(label: int, scale: int) -> schemas.Trends:
+    fetched_all = crud.read_trends_by_label_and_scale(connect, label, scale)
     trends = []
     for fetched in fetched_all:
         trend: schemas.Trend = {
@@ -136,22 +139,24 @@ def get_archive_by_id_mock(id: int) -> schemas.Archive:
     archive: schemas.Archive = {
         'id': fetched[0],
         'body': fetched[1],
-        'scale': fetched[2],
-        'date_and_time': fetched[3].strftime('%Y-%m-%d %H:%M:%S')
+        'label': fetched[2],
+        'scale': fetched[3],
+        'date_and_time': fetched[4].strftime('%Y-%m-%d %H:%M:%S')
     }
 
     return archive
 
 @api_router.get('/archives/', response_model=schemas.Archives)
-def get_archives_by_ip_address_mock(ip_address: str) -> schemas.Archives:
-    fetched_all = crud.read_archives_by_ip_address(connect, ip_address)
+def get_archives_by_e_mail_mock(e_mail: str) -> schemas.Archives:
+    fetched_all = crud.read_archives_by_e_mail(connect, e_mail)
     archives = []
     for fetched in fetched_all:
         archive: schemas.Archive = {
             'id': fetched[0],
             'body': fetched[1],
-            'scale': fetched[2],
-            'date_and_time': fetched[3].strftime('%Y-%m-%d %H:%M:%S')
+            'label': fetched[2],
+            'scale': fetched[3],
+            'date_and_time': fetched[4].strftime('%Y-%m-%d %H:%M:%S')
         }
         archives.append(archive)
     archives: schemas.Archives = {

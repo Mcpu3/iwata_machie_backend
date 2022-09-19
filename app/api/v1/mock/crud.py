@@ -6,6 +6,7 @@ def read_post_by_id(connect: Connection, id: int):
     cursor.execute(f'''select
         id,
         body,
+        label,
         scale,
         date_and_time
     from archives_mock
@@ -14,15 +15,16 @@ def read_post_by_id(connect: Connection, id: int):
 
     return fetched
 
-def read_posts_by_ip_address(connect: Connection, ip_address: str):
+def read_posts_by_e_mail(connect: Connection, e_mail: str):
     cursor = connect.cursor()
     cursor.execute(f'''select
         id,
         body,
+        label,
         scale,
         date_and_time
     from archives_mock
-    where id in (select id from posts_mock) and ip_address="{ip_address}"''')
+    where id in (select id from posts_mock) and e_mail="{e_mail}"''')
     fetched_all = cursor.fetchall()
 
     return fetched_all
@@ -42,7 +44,7 @@ def read_reaction_by_id(connect: Connection, id: int):
 
     return fetched
 
-def read_reaction_by_id_and_ip_address(connect: Connection, id: int, ip_address: str):
+def read_reaction_by_id_and_e_mail(connect: Connection, id: int, e_mail: str):
     cursor = connect.cursor()
     cursor.execute(f'''select
         id,
@@ -51,12 +53,12 @@ def read_reaction_by_id_and_ip_address(connect: Connection, id: int, ip_address:
         smile,
         astonished
     from reactions_mock
-    where id={id} and ip_address="{ip_address}"''')
+    where id={id} and e_mail="{e_mail}"''')
     fetched = cursor.fetchone()
 
     return fetched
 
-def read_reactions_by_ip_address(connect: Connection, ip_address: str):
+def read_reactions_by_e_mail(connect: Connection, e_mail: str):
     cursor = connect.cursor()
     cursor.execute(f'''select
         id,
@@ -65,7 +67,7 @@ def read_reactions_by_ip_address(connect: Connection, ip_address: str):
         smile,
         astonished
     from reactions_mock
-    where ip_address="{ip_address}"
+    where e_mail="{e_mail}"
     ''')
     fetched_all = cursor.fetchall()
 
@@ -85,7 +87,7 @@ def read_trend_by_id(connect: Connection, id: int):
 
     return fetched
 
-def read_trends_by_scale(connect: Connection, scale: int):
+def read_trends_by_label_and_scale(connect: Connection, label: int, scale: int):
     cursor = connect.cursor()
     cursor.execute(f'''select
         archives_mock.id,
@@ -93,7 +95,7 @@ def read_trends_by_scale(connect: Connection, scale: int):
         heart,
         smile,
         astonished
-    from archives_mock inner join trends_mock on archives_mock.id=trends_mock.id and archives_mock.scale={scale}''')
+    from archives_mock inner join trends_mock on archives_mock.id=trends_mock.id and archives_mock.label={label} and archives_mock.scale={scale}''')
     fetched_all = cursor.fetchall()
 
     return fetched_all
@@ -104,6 +106,7 @@ def read_archive_by_id(connect: Connection, id: int):
     cursor.execute(f'''select
         id,
         body,
+        label,
         scale,
         date_and_time
     from archives_mock
@@ -112,15 +115,16 @@ def read_archive_by_id(connect: Connection, id: int):
 
     return fetched
 
-def read_archives_by_ip_address(connect: Connection, ip_address: str):
+def read_archives_by_e_mail(connect: Connection, e_mail: str):
     cursor = connect.cursor()
     cursor.execute(f'''select
         id,
         body,
+        label,
         scale,
         date_and_time
     from archives_mock
-    where ip_address="{ip_address}"''')
+    where e_mail="{e_mail}"''')
     fetched_all = cursor.fetchall()
 
     return fetched_all
