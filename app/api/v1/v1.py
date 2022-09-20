@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Optional
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 import MySQLdb
 
 from api.v1 import schemas
@@ -15,6 +15,10 @@ connect = MySQLdb.connect(host='db', user='root', password='password', db='api')
 @api_router.get('/post/', response_model=schemas.Post)
 def get_post() -> schemas.Post:
     fetched = crud.read_post(connect)
+
+    if not fetched:
+        raise HTTPException(204)
+
     post: schemas.Post = {
         'id': fetched[0],
         'body': fetched[1],
@@ -28,6 +32,10 @@ def get_post() -> schemas.Post:
 @api_router.get('/post/{id}/', response_model=schemas.Post)
 def get_post_by_id(id: int) -> schemas.Post:
     fetched = crud.read_post_by_id(connect, id)
+
+    if not fetched:
+        raise HTTPException(204)
+
     post: schemas.Post = {
         'id': fetched[0],
         'body': fetched[1],
@@ -74,6 +82,10 @@ def get_reaction_by_id_and_e_mail(id: int, e_mail: Optional[str] = None) -> sche
         fetched = crud.read_reaction_by_id_and_e_mail(connect, id, e_mail)
     else:
         fetched = crud.read_reaction_by_id(connect, id)
+
+    if not fetched:
+        raise HTTPException(204)
+    
     reaction: schemas.Reaction = {
         'id': fetched[0],
         'thumbsup': fetched[1],
@@ -117,6 +129,10 @@ def post_new_reaction(id: int, new_reaction: schemas.NewReaction) -> schemas.New
 @api_router.get('/post/{id}/trend/', response_model=schemas.Trend)
 def get_trend_by_id(id: int) -> schemas.Trend:
     fetched = crud.read_trend_by_id(connect, id)
+
+    if not fetched:
+        raise HTTPException(204)
+
     trend: schemas.Trend = {
         'id': fetched[0],
         'thumbsup': fetched[1],
@@ -149,6 +165,10 @@ def get_trends_by_label_and_scale(label: int, scale: int) -> schemas.Trends:
 @api_router.get('/archive/{id}/', response_model=schemas.Archive)
 def get_archive_by_id(id: int) -> schemas.Archive:
     fetched = crud.read_archive_by_id(connect, id)
+
+    if not fetched:
+        raise HTTPException(204)
+
     archive: schemas.Archive = {
         'id': fetched[0],
         'body': fetched[1],

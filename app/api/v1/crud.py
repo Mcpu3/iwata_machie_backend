@@ -1,8 +1,4 @@
-from datetime import datetime
-
 from MySQLdb import Connection
-
-from api.v1 import schemas
 
 
 def read_post(connect: Connection):

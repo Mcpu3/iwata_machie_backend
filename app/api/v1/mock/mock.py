@@ -1,6 +1,6 @@
 from typing import Optional
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 import MySQLdb
 
 from api.v1.mock import schemas
@@ -14,6 +14,10 @@ connect = MySQLdb.connect(host='db', user='root', password='password', db='api')
 @api_router.get('/post/', response_model=schemas.Post)
 def get_post_mock() -> schemas.Post:
     fetched = crud.read_post_by_id(connect, 1)
+
+    if not fetched:
+        raise HTTPException(204)
+
     post: schemas.Post = {
         'id': fetched[0],
         'body': fetched[1],
@@ -27,6 +31,10 @@ def get_post_mock() -> schemas.Post:
 @api_router.get('/post/{id}/', response_model=schemas.Post)
 def get_post_by_id_mock(id: int) -> schemas.Post:
     fetched = crud.read_post_by_id(connect, id)
+
+    if not fetched:
+        raise HTTPException(204)
+
     post: schemas.Post = {
         'id': fetched[0],
         'body': fetched[1],
@@ -67,6 +75,10 @@ def get_reaction_by_id_and_e_mail_mock(id: int, e_mail: Optional[str] = None) ->
         fetched = crud.read_reaction_by_id_and_e_mail(connect, id, e_mail)
     else:
         fetched = crud.read_reaction_by_id(connect, id)
+    
+    if not fetched:
+        raise HTTPException(204)
+
     reaction: schemas.Reaction = {
         'id': fetched[0],
         'thumbsup': fetched[1],
@@ -104,6 +116,10 @@ def post_new_reaction_post(id: int, new_reaction: schemas.NewReaction) -> schema
 @api_router.get('/post/{id}/trend/', response_model=schemas.Trend)
 def get_trend_by_id_mock(id: int) -> schemas.Trend:
     fetched = crud.read_trend_by_id(connect, id)
+
+    if not fetched:
+        raise HTTPException(204)
+
     trend: schemas.Trend = {
         'id': fetched[0],
         'thumbsup': fetched[1],
@@ -136,6 +152,10 @@ def get_trends_by_label_and_scale_mock(label: int, scale: int) -> schemas.Trends
 @api_router.get('/archive/{id}/', response_model=schemas.Archive)
 def get_archive_by_id_mock(id: int) -> schemas.Archive:
     fetched = crud.read_archive_by_id(connect, id)
+
+    if not fetched:
+        raise HTTPException(204)
+
     archive: schemas.Archive = {
         'id': fetched[0],
         'body': fetched[1],
