@@ -14,7 +14,7 @@ def read_post(connect: Connection):
         scale,
         created_at
     from archives
-    order by rand() limit 1''')
+    where id in (select id from (select id from posts order by rand() limit 1) as posts_1)''')
     fetched = cursor.fetchone()
 
     return fetched
