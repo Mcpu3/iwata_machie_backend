@@ -6,10 +6,10 @@ create table archives_mock
     label int,
     scale int,
     created_at timestamp,
-    e_mail varchar(1024),
+    e_mail varchar(256),
     primary key (id)
 );
-insert into archives_mock(body, label, scale, created_by, e_mail) values
+insert into archives_mock(body, label, scale, created_at, e_mail) values
 (
     "hello",
     1,
@@ -17,7 +17,7 @@ insert into archives_mock(body, label, scale, created_by, e_mail) values
     "2022-09-20 06:00:00",
     "abc@email.com"
 );
-insert into archives_mock(body, label, scale, created_by, e_mail) values
+insert into archives_mock(body, label, scale, created_at, e_mail) values
 (
     "world",
     2,
@@ -25,7 +25,7 @@ insert into archives_mock(body, label, scale, created_by, e_mail) values
     "2022-09-20 18:00:00",
     "def@email.com"
 );
-insert into archives_mock(body, label, scale, created_by, e_mail) values
+insert into archives_mock(body, label, scale, created_at, e_mail) values
 (
     "こんにちは",
     1,
@@ -33,7 +33,7 @@ insert into archives_mock(body, label, scale, created_by, e_mail) values
     "2022-09-21 06:00:00",
     "ghi@email.com"
 );
-insert into archives_mock(body, label, scale, created_by, e_mail) values
+insert into archives_mock(body, label, scale, created_at, e_mail) values
 (
     "世界",
     2,
@@ -61,14 +61,15 @@ create table reactions_mock
     heart int,
     smile int,
     astonished int,
-    e_mail varchar(1024),
+    e_mail varchar(256),
+    primary key (e_mail),
     foreign key (id) references archives_mock(id)
 );
 insert into reactions_mock values
 (
     1,
     1,
-    0,
+    1,
     0,
     0,
     "abc@email.com"
@@ -76,29 +77,20 @@ insert into reactions_mock values
 insert into reactions_mock values
 (
     2,
-    0,
     1,
     0,
+    1,
     0,
     "def@email.com"
 );
 insert into reactions_mock values
 (
     3,
+    1,
     0,
     0,
     1,
-    0,
     "ghi@email.com"
-);
-insert into reactions_mock values
-(
-    1,
-    0,
-    0,
-    0,
-    1,
-    "abc@email.com"
 );
 create table trends_mock
 (
