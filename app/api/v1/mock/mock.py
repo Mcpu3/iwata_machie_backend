@@ -19,7 +19,7 @@ def get_post_mock() -> schemas.Post:
         'body': fetched[1],
         'label': fetched[2],
         'scale': fetched[3],
-        'date_and_time': fetched[4].strftime('%Y-%m-%d %H:%M:%S')
+        'created_at': fetched[4].strftime('%Y-%m-%d %H:%M:%S')
     }
 
     return post
@@ -32,7 +32,7 @@ def get_post_by_id_mock(id: int) -> schemas.Post:
         'body': fetched[1],
         'label': fetched[2],
         'scale': fetched[3],
-        'date_and_time': fetched[4].strftime('%Y-%m-%d %H:%M:%S')
+        'created_at': fetched[4].strftime('%Y-%m-%d %H:%M:%S')
     }
 
     return post
@@ -47,7 +47,7 @@ def get_posts_by_e_mail_mock(e_mail: str) -> schemas.Posts:
             'body': fetched[1],
             'label': fetched[2],
             'scale': fetched[3],
-            'date_and_time': fetched[4].strftime('%Y-%m-%d %H:%M:%S')
+            'created_at': fetched[4].strftime('%Y-%m-%d %H:%M:%S')
         }
         posts.append(post)
     posts: schemas.Posts = {
@@ -141,7 +141,7 @@ def get_archive_by_id_mock(id: int) -> schemas.Archive:
         'body': fetched[1],
         'label': fetched[2],
         'scale': fetched[3],
-        'date_and_time': fetched[4].strftime('%Y-%m-%d %H:%M:%S')
+        'created_at': fetched[4].strftime('%Y-%m-%d %H:%M:%S')
     }
 
     return archive
@@ -156,7 +156,7 @@ def get_archives_by_e_mail_mock(e_mail: str) -> schemas.Archives:
             'body': fetched[1],
             'label': fetched[2],
             'scale': fetched[3],
-            'date_and_time': fetched[4].strftime('%Y-%m-%d %H:%M:%S')
+            'created_at': fetched[4].strftime('%Y-%m-%d %H:%M:%S')
         }
         archives.append(archive)
     archives: schemas.Archives = {

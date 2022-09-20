@@ -5,11 +5,11 @@ create table archives_mock
     body varchar(1024),
     label int,
     scale int,
-    date_and_time timestamp,
+    created_at timestamp,
     e_mail varchar(1024),
     primary key (id)
 );
-insert into archives_mock(body, label, scale, date_and_time, e_mail) values
+insert into archives_mock(body, label, scale, created_by, e_mail) values
 (
     "hello",
     1,
@@ -17,7 +17,7 @@ insert into archives_mock(body, label, scale, date_and_time, e_mail) values
     "2022-09-20 06:00:00",
     "abc@email.com"
 );
-insert into archives_mock(body, label, scale, date_and_time, e_mail) values
+insert into archives_mock(body, label, scale, created_by, e_mail) values
 (
     "world",
     2,
@@ -25,7 +25,7 @@ insert into archives_mock(body, label, scale, date_and_time, e_mail) values
     "2022-09-20 18:00:00",
     "def@email.com"
 );
-insert into archives_mock(body, label, scale, date_and_time, e_mail) values
+insert into archives_mock(body, label, scale, created_by, e_mail) values
 (
     "こんにちは",
     1,
@@ -33,7 +33,7 @@ insert into archives_mock(body, label, scale, date_and_time, e_mail) values
     "2022-09-21 06:00:00",
     "ghi@email.com"
 );
-insert into archives_mock(body, label, scale, date_and_time, e_mail) values
+insert into archives_mock(body, label, scale, created_by, e_mail) values
 (
     "世界",
     2,

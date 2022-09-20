@@ -6,7 +6,7 @@ class Post(BaseModel):
     body: str
     label: int
     scale: int
-    date_and_time: str
+    created_at: str
 
 
 class Posts(BaseModel):
@@ -57,7 +57,7 @@ class Archive(BaseModel):
     body: str
     label: int
     scale: int
-    date_and_time: str
+    created_at: str
 
 
 class Archives(BaseModel):

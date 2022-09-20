@@ -8,7 +8,7 @@ def read_post_by_id(connect: Connection, id: int):
         body,
         label,
         scale,
-        date_and_time
+        created_at
     from archives_mock
     where id in (select id from posts_mock where id={id})''')
     fetched = cursor.fetchone()
@@ -22,7 +22,7 @@ def read_posts_by_e_mail(connect: Connection, e_mail: str):
         body,
         label,
         scale,
-        date_and_time
+        created_at
     from archives_mock
     where id in (select id from posts_mock) and e_mail="{e_mail}"''')
     fetched_all = cursor.fetchall()
@@ -108,7 +108,7 @@ def read_archive_by_id(connect: Connection, id: int):
         body,
         label,
         scale,
-        date_and_time
+        created_at
     from archives_mock
     where id={id}''')
     fetched = cursor.fetchone()
@@ -122,7 +122,7 @@ def read_archives_by_e_mail(connect: Connection, e_mail: str):
         body,
         label,
         scale,
-        date_and_time
+        created_at
     from archives_mock
     where e_mail="{e_mail}"''')
     fetched_all = cursor.fetchall()
