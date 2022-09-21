@@ -131,7 +131,7 @@ def update_reactions(connect: Connection, reactions: pd.DataFrame):
             {astonished},
             "{e_mail}"
         )''')
-        connect.commit()
+    connect.commit()
 
 def read_trend_by_id(connect: Connection, id: int):
     cursor = connect.cursor()
