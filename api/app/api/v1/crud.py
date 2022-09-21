@@ -24,7 +24,7 @@ def read_post_by_id(connect: Connection, id: int):
         scale,
         created_at
     from archives
-    where id in (select id from posts where id={id})''')
+    where id in (select id from posts where id = {id})''')
     fetched = cursor.fetchone()
 
     return fetched
@@ -38,7 +38,7 @@ def read_posts_by_e_mail(connect: Connection, e_mail: str):
         scale,
         created_at
     from archives
-    where id in (select id from posts) and e_mail="{e_mail}"''')
+    where id in (select id from posts) and e_mail = "{e_mail}"''')
     fetched_all = cursor.fetchall()
 
     return fetched_all
@@ -54,21 +54,6 @@ def create_new_post(connect: Connection, body: str, label: int, scale: int, crea
     )''')
     connect.commit()
 
-def read_reaction_by_id(connect: Connection, id: int):
-    cursor = connect.cursor()
-    cursor.execute(f'''select
-        id,
-        sum(thumbsup),
-        sum(heart),
-        sum(smile),
-        sum(astonished)
-    from reactions
-    where id={id}
-    ''')
-    fetched = cursor.fetchone()
-
-    return fetched
-
 def read_reaction_by_id_and_e_mail(connect: Connection, id: int, e_mail: str):
     cursor = connect.cursor()
     cursor.execute(f'''select
@@ -78,7 +63,22 @@ def read_reaction_by_id_and_e_mail(connect: Connection, id: int, e_mail: str):
         smile,
         astonished
     from reactions
-    where id={id} and e_mail="{e_mail}"''')
+    where id = {id} and e_mail = "{e_mail}"''')
+    fetched = cursor.fetchone()
+
+    return fetched
+
+def read_reaction_by_id(connect: Connection, id: int):
+    cursor = connect.cursor()
+    cursor.execute(f'''select
+        id,
+        sum(thumbsup),
+        sum(heart),
+        sum(smile),
+        sum(astonished)
+    from reactions
+    where id = {id}
+    ''')
     fetched = cursor.fetchone()
 
     return fetched
@@ -92,7 +92,7 @@ def read_reactions_by_e_mail(connect: Connection, e_mail: str):
         smile,
         astonished
     from reactions
-    where e_mail="{e_mail}"
+    where e_mail = "{e_mail}"
     ''')
     fetched_all = cursor.fetchall()
 
@@ -113,13 +113,13 @@ def create_new_reaction(connect: Connection, id: int, thumbsup: int, heart: int,
 def read_trend_by_id(connect: Connection, id: int):
     cursor = connect.cursor()
     cursor.execute(f'''select
-        archives.id,
+        trends.id,
         thumbsup,
         heart,
         smile,
         astonished
-    from archives inner join trends on archives.id=trends.id
-    where archives.id in (select id from archives where id={id})''')
+    from archives inner join trends on archives.id = trends.id
+    where archives.id in (select id from archives where id = {id})''')
     fetched = cursor.fetchone()
 
     return fetched
@@ -127,12 +127,12 @@ def read_trend_by_id(connect: Connection, id: int):
 def read_trends_by_label_and_scale(connect: Connection, label: int, scale: int):
     cursor = connect.cursor()
     cursor.execute(f'''select
-        archives.id,
+        trends.id,
         thumbsup,
         heart,
         smile,
         astonished
-    from archives inner join trends on archives.id=trends.id and archives.label={label} and archives.scale={scale}''')
+    from archives inner join trends on archives.id = trends.id and archives.label = {label} and archives.scale = {scale}''')
     fetched_all = cursor.fetchall()
 
     return fetched_all
@@ -146,7 +146,7 @@ def read_archive_by_id(connect: Connection, id: int):
         scale,
         created_at
     from archives
-    where id={id}''')
+    where id = {id}''')
     fetched = cursor.fetchone()
 
     return fetched
@@ -160,7 +160,7 @@ def read_archives_by_e_mail(connect: Connection, e_mail: str):
         scale,
         created_at
     from archives
-    where e_mail="{e_mail}"''')
+    where e_mail = "{e_mail}"''')
     fetched_all = cursor.fetchall()
 
     return fetched_all

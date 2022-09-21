@@ -48,11 +48,11 @@ create table posts_mock
 );
 insert into posts_mock values
 (
-    1
+    3
 );
 insert into posts_mock values
 (
-    2
+    4
 );
 create table reactions_mock
 (
