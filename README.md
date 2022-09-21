@@ -2,12 +2,10 @@
 
 ## データベースのデータモデル
 
-### モック
-
-* **archives_mock**(<u>id</u>, body, label, scale, date_and_time, e_mail)
-* **posts_mock**(<u>id</u>)
-* **reactions_mock**(<u>id</u>, thumbsup, heart, smile, astonished, e_mail)
-* **trends_mock**(<u>id</u>, thumbsup, heart, smile, astonished)
+* **archives**(<u>id</u>, body, label, scale, date_and_time, e_mail)
+* **posts**(<u>id</u>)
+* **reactions**(<u>id</u>, thumbsup, heart, smile, astonished, e_mail)
+* **trends**(<u>id</u>, thumbsup, heart, smile, astonished)
 
 ## 環境構築
 
