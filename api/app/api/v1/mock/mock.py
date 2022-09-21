@@ -13,7 +13,7 @@ connect = MySQLdb.connect(host='db', user='root', password='password', db='api')
 
 @api_router.get('/post/', response_model=schemas.Post)
 def get_post_mock() -> schemas.Post:
-    fetched = crud.read_post_by_id(connect, 1)
+    fetched = crud.read_post_by_id(connect, 3)
 
     if not fetched:
         raise HTTPException(204)
