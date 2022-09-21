@@ -2,7 +2,7 @@
 
 ## データベースのデータモデル
 
-* **archives**(<u>id</u>, body, label, scale, date_and_time, e_mail)
+* **archives**(<u>id</u>, body, label, scale, created_at, e_mail)
 * **posts**(<u>id</u>)
 * **reactions**(<u>id</u>, thumbsup, heart, smile, astonished, e_mail)
 * **trends**(<u>id</u>, thumbsup, heart, smile, astonished)
