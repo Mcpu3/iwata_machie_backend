@@ -10,11 +10,11 @@ import crud
 
 
 def update_posts(connect: Connection):
-    fetched_all = crud.read_created_at_and_e_mail(connect)
-    posts = pd.DataFrame(fetched_all, columns=['id', 'created_at', 'e_mail'])
+    fetched_all = crud.read_label_and_created_at_and_e_mail(connect)
+    posts = pd.DataFrame(fetched_all, columns=['id', 'label', 'created_at', 'e_mail'])
     created_at = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d %H:%M:%S")
     posts = posts[posts.created_at >= created_at]
-    posts = posts.sort_values('created_at').drop_duplicates(subset=['e_mail'], keep='last')
+    posts = posts.sort_values('created_at').drop_duplicates(subset=['label', 'e_mail'], keep='last')
     crud.update_posts(connect, posts)
 
 def update_trends(connect: Connection):

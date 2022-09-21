@@ -3,10 +3,11 @@ import pandas as pd
 from MySQLdb import Connection
 
 
-def read_created_at_and_e_mail(connect: Connection):
+def read_label_and_created_at_and_e_mail(connect: Connection):
     cursor = connect.cursor()
     cursor.execute('''select
         archives.id,
+        label,
         created_at,
         e_mail
     from archives''')
