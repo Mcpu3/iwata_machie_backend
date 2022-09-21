@@ -1,4 +1,5 @@
 from MySQLdb import Connection
+import pandas as pd
 
 
 def read_post(connect: Connection):
@@ -98,17 +99,39 @@ def read_reactions_by_e_mail(connect: Connection, e_mail: str):
 
     return fetched_all
 
-def create_new_reaction(connect: Connection, id: int, thumbsup: int, heart: int, smile: int, astonished: int, e_mail: str):
+def read_reactions(connect: Connection):
     cursor = connect.cursor()
-    cursor.execute(f'''replace into reactions(id, thumbsup, heart, smile, astonished, e_mail) values (
-        {id},
-        {thumbsup},
-        {heart},
-        {smile},
-        {astonished},
-        "{e_mail}"
-    )''')
-    connect.commit()
+    cursor.execute('''select
+        id,
+        thumbsup,
+        heart,
+        smile,
+        astonished,
+        e_mail
+    from reactions''')
+    fetched_all = cursor.fetchall()
+
+    return fetched_all
+
+def update_reactions(connect: Connection, reactions: pd.DataFrame):
+    cursor = connect.cursor()
+    cursor.execute('''delete from reactions''')
+    for reaction in reactions.values:
+        id = reaction[0]
+        thumbsup = reaction[1]
+        heart = reaction[2]
+        smile = reaction[3]
+        astonished = reaction[4]
+        e_mail = reaction[5]
+        cursor.execute(f'''insert into reactions(id, thumbsup, heart, smile, astonished, e_mail) values (
+            {id},
+            {thumbsup},
+            {heart},
+            {smile},
+            {astonished},
+            "{e_mail}"
+        )''')
+        connect.commit()
 
 def read_trend_by_id(connect: Connection, id: int):
     cursor = connect.cursor()

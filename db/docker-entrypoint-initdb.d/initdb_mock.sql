@@ -62,7 +62,6 @@ create table reactions_mock
     smile int,
     astonished int,
     e_mail varchar(256),
-    primary key (e_mail),
     foreign key (id) references archives_mock(id)
 );
 insert into reactions_mock values

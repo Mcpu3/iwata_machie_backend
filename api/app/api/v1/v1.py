@@ -3,6 +3,7 @@ from typing import Optional
 
 from fastapi import APIRouter, HTTPException
 import MySQLdb
+import pandas as pd
 
 from api.v1 import schemas
 from api.v1 import crud
@@ -117,12 +118,16 @@ def get_reactions_by_e_mail(e_mail: str) -> schemas.Reactions:
 
 @api_router.post('/post/{id}/new_reaction/', response_model=schemas.NewReaction)
 def post_new_reaction(id: int, new_reaction: schemas.NewReaction) -> schemas.NewReaction:
+    fetched_all = crud.read_reactions(connect)
+    reactions = pd.DataFrame(fetched_all, columns=['id', 'thumbsup', 'heart', 'smile', 'astonished', 'e_mail'])
     thumbsup = new_reaction.thumbsup
     heart = new_reaction.heart
     smile = new_reaction.smile
     astonished = new_reaction.astonished
     e_mail = new_reaction.e_mail
-    crud.create_new_reaction(connect, id, thumbsup, heart, smile, astonished, e_mail)
+    reactions = pd.concat([reactions, pd.DataFrame([[id, thumbsup, heart, smile, astonished, e_mail]], columns=['id', 'thumbsup', 'heart', 'smile', 'astonished', 'e_mail'])])
+    reactions = reactions.drop_duplicates(subset=['id', 'e_mail'], keep='last')
+    crud.update_reactions(connect, reactions)
 
     return new_reaction
 

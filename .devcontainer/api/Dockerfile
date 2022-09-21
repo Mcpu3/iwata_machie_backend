@@ -4,6 +4,6 @@ RUN apt update
 RUN apt install -y gcc default-libmysqlclient-dev
 
 RUN pip install --upgrade pip
-RUN pip install mysqlclient
+RUN pip install mysqlclient pandas
 
 CMD ["uvicorn", "main:app", "--reload", "--host", "0.0.0.0"]

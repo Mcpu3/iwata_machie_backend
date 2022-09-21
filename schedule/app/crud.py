@@ -23,7 +23,6 @@ def update_posts(connect: Connection, posts: pd.DataFrame):
         cursor.execute(f'''insert into posts(id) values (
             {id}
         )''')
-    
     connect.commit()
 
 def read_label_and_scale_and_reactions(connect: Connection):

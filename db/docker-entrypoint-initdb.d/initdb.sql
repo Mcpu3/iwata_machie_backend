@@ -23,7 +23,6 @@ create table reactions
     smile int,
     astonished int,
     e_mail varchar(256),
-    primary key (e_mail),
     foreign key (id) references archives(id)
 );
 create table trends
