@@ -20,7 +20,7 @@ def update_posts(connect: Connection):
 def update_trends(connect: Connection):
     fetched_all = crud.read_label_and_scale_and_reactions(connect)
     trends = pd.DataFrame(fetched_all, columns=['id', 'label', 'scale', 'thumbsup', 'heart', 'smile', 'astonished'])
-    trends = trends.loc[:, ['id']].join(trends.loc[:, ['label', 'scale', 'thumbsup', 'heart', 'smile', 'astonished']].groupby(['label', 'scale']).rank('min'))
+    trends = trends.loc[:, ['id']].join(trends.loc[:, ['label', 'scale', 'thumbsup', 'heart', 'smile', 'astonished']].groupby(['label', 'scale']).rank('min', ascending=False))
     crud.update_trends(connect, trends)
 
 if __name__ == '__main__':
